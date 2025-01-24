@@ -1,0 +1,23 @@
+name: Alistair pipeline
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+
+jobs:
+  build:
+    name: Build repo
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'yarn'
+
+    - run: yarn install
+    - run: yarn build
+    - run: yarn test
+    - run: yarn test:e2e
