@@ -3,7 +3,7 @@ pipeline {
 
     options {
         description('A pipeline to build and test the CI/CD workshop repository')
-        displayName('Alistair`\'s CI/CD workshop pipeline')
+        displayName('Alistair CI/CD workshop pipeline')
     }
 
     tools {
