@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+    options {
+        description('A pipeline to build and test the CI/CD workshop repository')
+        displayName('Alistair`\'s CI/CD workshop pipeline')
+    }
+
     tools {
         nodejs 'yarn'
     }
@@ -11,15 +17,20 @@ pipeline {
             }
         }
 
-        stage('build') {
+        stage('unit-test') {
             steps {
-                sh 'yarn build'
+                sh 'yarn test'
+            }
+            post {
+                always {
+                    junit 'reports/unit-tests.xml'
+                }
             }
         }
 
-        stage('test') {
+        stage('build') {
             steps {
-                sh 'yarn test'
+                sh 'yarn build'
             }
         }
 
@@ -27,12 +38,11 @@ pipeline {
             steps {
                 sh 'yarn test:e2e'
             }
-        }
-    }
-
-    post {
-        always {
-            junit '**/reports/**/*.xml'
+            post {
+                always {
+                    junit 'reports/cypress-tests.xml'
+                }
+            }
         }
     }
 }
