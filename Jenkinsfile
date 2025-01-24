@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    options {
-        description('A pipeline to build and test the CI/CD workshop repository')
-        displayName('Alistair CI/CD workshop pipeline')
-    }
-
     tools {
         nodejs 'yarn'
     }
